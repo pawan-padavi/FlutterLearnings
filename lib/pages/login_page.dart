@@ -12,10 +12,30 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String message = '';
   bool chagebutton = false;
+  final _formkey = GlobalKey<FormState>();
+  //Move To netx Page
+  movetohome(BuildContext context) async {
+    if (_formkey.currentState!.validate()) {
+    } else {
+      setState(() {
+        chagebutton = true;
+      });
+      await Future.delayed(const Duration(seconds: 2));
+      // ignore: use_build_context_synchronously
+      await Navigator.pushNamed(context, '/Home');
+      setState(() {
+        chagebutton = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Welcome Page"),
+        backgroundColor: const Color.fromRGBO(0, 191, 166, 1),
+      ),
       body: Center(
           child: SingleChildScrollView(
         child: Column(
@@ -27,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               "Welcome $message",
               style: const TextStyle(
-                color: Colors.deepOrange,
+                color: Color.fromRGBO(0, 191, 166, 1),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -35,66 +55,62 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: "Enter Username",
-                      labelText: "Username",
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: "Enter Username",
+                          labelText: "Username",
+                          icon: Icon(Icons.person_outline_sharp)),
+                      onChanged: (value) {
+                        message = value;
+                        setState(() {});
+                      },
+                      validator: (value) => value.toString().isEmpty
+                          ? "Cannot be null UserName"
+                          : null,
                     ),
-                    onChanged: (value) {
-                      message = value;
-                      setState(() {});
-                    },
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: "Enter Password",
-                      labelText: "Password",
+                    TextFormField(
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          hintText: "Enter Password",
+                          labelText: "Password",
+                          icon: Icon(Icons.key_rounded)),
+                      validator: (value) => value.toString().isEmpty
+                          ? "Cannot be null Password"
+                          : null,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 40.0,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      setState(() {
-                        chagebutton = true;
-                      });
-                      await Future.delayed(const Duration(seconds: 2));
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, '/Home');
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(seconds: 1),
-                      width: chagebutton ? 50 : 150,
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(0, 191, 166, 1),
-                        borderRadius:
-                            BorderRadius.circular(chagebutton ? 25 : 8),
-                      ),
-                      child: chagebutton
-                          ? const Icon(Icons.done)
-                          : const Text(
-                              "Login",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    InkWell(
+                      onTap: () => movetohome(context),
+                      child: AnimatedContainer(
+                        duration: const Duration(seconds: 1),
+                        width: chagebutton ? 50 : 150,
+                        height: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(0, 191, 166, 1),
+                          borderRadius:
+                              BorderRadius.circular(chagebutton ? 25 : 8),
+                        ),
+                        child: chagebutton
+                            ? const Icon(Icons.done)
+                            : const Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                    ),
-                  )
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     Navigator.pushNamed(context, '/Home');
-                  //   },
-                  //   child: const Text("Login"),
-                  // ),
-                ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],
