@@ -18,6 +18,7 @@ class MainApp extends StatelessWidget {
         "/Home": (context) => HomePage(),
         "/Login": (context) => const LoginPage()
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

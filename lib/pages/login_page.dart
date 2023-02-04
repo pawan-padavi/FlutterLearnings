@@ -31,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Welcome Page"),
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromRGBO(0, 191, 166, 1),
       ),
       body: Center(
@@ -40,6 +41,9 @@ class _LoginPageState extends State<LoginPage> {
             Image.asset(
               "assets/images/login_img.png",
               fit: BoxFit.contain,
+            ),
+            const SizedBox(
+              height: 40.0,
             ),
             Text(
               "Welcome $message",
