@@ -10,7 +10,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        backgroundColor: Colors.brown,
         child: ListView(padding: const EdgeInsets.all(0), children: const [
           UserAccountsDrawerHeader(
               accountName: Text("Pawansing Padavi"),
@@ -18,7 +17,6 @@ class HomePage extends StatelessWidget {
         ]),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.brown,
         title: Text(drawerHeader),
       ),
       body: Center(
