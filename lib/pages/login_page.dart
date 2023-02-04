@@ -15,18 +15,15 @@ class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   //Move To netx Page
   movetohome(BuildContext context) async {
-    if (_formkey.currentState!.validate()) {
-    } else {
-      setState(() {
-        chagebutton = true;
-      });
-      await Future.delayed(const Duration(seconds: 2));
-      // ignore: use_build_context_synchronously
-      await Navigator.pushNamed(context, '/Home');
-      setState(() {
-        chagebutton = false;
-      });
-    }
+    setState(() {
+      chagebutton = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+    // ignore: use_build_context_synchronously
+    await Navigator.pushNamed(context, '/Home');
+    setState(() {
+      chagebutton = false;
+    });
   }
 
   @override
